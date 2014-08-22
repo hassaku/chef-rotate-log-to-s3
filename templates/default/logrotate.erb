@@ -1,0 +1,19 @@
+<%= node['rotate-log-to-s3']['log-dir'] %>/*.log {
+  create <%= node['rotate-log-to-s3']['permission'] %> <%= node['rotate-log-to-s3']['user'] %> <%= node['rotate-log-to-s3']['group'] %>
+  daily
+  rotate <%= node['rotate-log-to-s3']['limits'] %>
+  missingok
+  notifempty
+  compress
+  dateext
+
+  sharedscripts
+  lastaction
+    <%= node['rotate-log-to-s3']['post-rotate-command'] %>
+
+    set -ue
+    export AWS_ACCESS_KEY_ID=<%= node['rotate-log-to-s3']['aws-id'] %>
+    export AWS_SECRET_ACCESS_KEY=<%= node['rotate-log-to-s3']['aws-key'] %>
+    /usr/bin/aws s3 cp <%= node['rotate-log-to-s3']['log-dir'] %> s3://<%= node['rotate-log-to-s3']['s3-dir'] %>/ --region <%= node['rotate-log-to-s3']['s3-region'] %> <%= node['rotate-log-to-s3']['option'] %>
+  endscript
+}
