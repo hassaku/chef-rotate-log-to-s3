@@ -10,7 +10,7 @@ Add `rotate-log-to-s3` recipe in your node's `run_list` and attributes.
 {
   ...
   "rotate-log-to-s3": {
-    "name_of_logrotate": {
+    "logrotate_1": {
       "log-dir": "/target/directory", # (All *.log files in the directory are processed.
       "permission": "0644",
       "user": "user1",
@@ -22,6 +22,9 @@ Add `rotate-log-to-s3` recipe in your node's `run_list` and attributes.
       "s3-dir": "bucket/path/to/backup",
       "s3-region": "ap-northeast-1",
       "option": "--exclude \"*\" --include \"*.gz\" --recursive"
+    },
+    "logrotate_2": {
+      ...
     }
   },
   "run_list": [
