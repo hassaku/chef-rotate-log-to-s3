@@ -39,10 +39,15 @@ bash "install awscli" do
 end
 
 # logrotate configuration including upload to S3
-template "logrotate" do
-  path "/etc/logrotate.d/#{node['rotate-log-to-s3']['target']}"
-  source 'logrotate.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
+if node['rotate-log-to-s3']
+  node['rotate-log-to-s3'].each do |name, options|
+    template "logrotate-#{name}" do
+      path "/etc/logrotate.d/#{name}"
+      source 'logrotate.erb'
+      owner 'root'
+      group 'root'
+      mode '0644'
+      variables({ :options => options })
+    end
+  end
 end

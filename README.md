@@ -10,22 +10,23 @@ Add `rotate-log-to-s3` recipe in your node's `run_list` and attributes.
 {
   ...
   "rotate-log-to-s3": {
-    "target": "name_of_logrotate",
-    "log-dir": "/target/directory", # (All *.log files in the directory are processed.
-    "permission": "0644",
-    "user": "user1",
-    "group": "user1",
-    "limits": "5",                  # number of rotated files
-    "post-rotate-command": "",      # run shell command after log rotate
-    "aws-id": "XXXXXXXXXXXXXXX",    # AWS_ACCESS_KEY_ID
-    "aws-key": "YYYYYYYYYYYYYYYY",  # AWS_SECRET_ACCESS_KEY
-    "s3-dir": "bucket/path/to/backup",
-    "s3-region": "ap-northeast-1",
-    "option": "--exclude \"*\" --include \"*.gz\" --recursive"
+    "name_of_logrotate": {
+      "log-dir": "/target/directory", # (All *.log files in the directory are processed.
+      "permission": "0644",
+      "user": "user1",
+      "group": "user1",
+      "limits": "5",                  # number of rotated files
+      "post-rotate-command": "",      # run shell command after log rotate
+      "aws-id": "XXXXXXXXXXXXXXX",    # AWS_ACCESS_KEY_ID
+      "aws-key": "YYYYYYYYYYYYYYYY",  # AWS_SECRET_ACCESS_KEY
+      "s3-dir": "bucket/path/to/backup",
+      "s3-region": "ap-northeast-1",
+      "option": "--exclude \"*\" --include \"*.gz\" --recursive"
+    }
   },
   "run_list": [
     ...
-    "recipe[rotate-log-to-s3]"
+    "recipe[rotate-log-to-s3]",
     ...
   ],
   ...
