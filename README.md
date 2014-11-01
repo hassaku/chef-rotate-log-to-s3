@@ -4,6 +4,13 @@ This cookbook rotate logs and upload them to S3.
 
 Usage
 -----
+
+If you use Berkshelf, add this cookbook as follow.
+
+```ruby
+cookbook "rotate-log-to-s3", github: "hassaku/chef-rotate-log-to-s3"
+```
+
 Add `rotate-log-to-s3` recipe in your node's `run_list` and attributes.
 
 ```json
